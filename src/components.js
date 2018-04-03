@@ -283,8 +283,8 @@ export default (editor, config = {}) => {
 
     if (blocks.image) {
       domc.addType('image', {
-        model: defaultModel.extend({
-          defaults: Object.assign({}, defaultModel.prototype.defaults, {
+        model: imageModel.extend({
+          defaults: Object.assign({}, imageModel.prototype.defaults, {
             'custom-name': 'Image',
             tagName: 'img',
             resizable: 1,
@@ -302,7 +302,7 @@ export default (editor, config = {}) => {
                 label: 'Alternate text',
                 name: 'alt'
               }
-            ].concat(defaultModel.prototype.defaults.traits)
+            ].concat(imageModel.prototype.defaults.traits)
           })
         }, {
           isComponent: function(el) {
@@ -311,7 +311,7 @@ export default (editor, config = {}) => {
             }
           }
         }),
-        view: defaultView
+        view: imageView
       });
       imageType = domc.getType('image');
       imageModel = imageType.model;
@@ -400,7 +400,7 @@ export default (editor, config = {}) => {
           defaults: Object.assign({}, defaultModel.prototype.defaults, {
             'custom-name': 'Row',
             tagName: 'div',
-            draggable: '.container, .container-fluid',
+            //draggable: '.container, .container-fluid',
             droppable: true,
             traits: [
               {
@@ -415,7 +415,7 @@ export default (editor, config = {}) => {
           })
         }, {
           isComponent(el) {
-            if(el && el.classList && el.classList.contains('row')) {
+            if(el && el.classList && el.classList.contains('row') && !el.children.classList.contains('cell')) {
               return {type: 'row'};
             }
           }
@@ -959,7 +959,7 @@ export default (editor, config = {}) => {
             }
           },
           order() {
-            
+
           }
         }, {
           isComponent(el) {
